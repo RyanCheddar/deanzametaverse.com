@@ -25,15 +25,6 @@
         init: function () {
           this.el.addEventListener('targetFound', event => {
             console.log("target found");
-              setTimeout(() => {
-                const portfolio = document.querySelector("#portfolio");
-
-                portfolio.setAttribute("visible", true);
-
-                portfolio.addEventListener('click', function (evt) {
-                  window.location.replace("https://discord.gg/cVwpHH4v");
-              });
-              }, 8000);
           });
           this.el.addEventListener('targetLost', event => {
             console.log("target found");
@@ -48,7 +39,6 @@
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
       <a-entity id="mytarget" mytarget mindar-image-target="targetIndex: 0">
         <a-plane src="#poster" position="0 0 0" height="1.2916" width="1" rotation="0 0 0"></a-plane>
-        <a-gltf-model visible=false id="portfolio" class="clickable" rotation="0 0 0 " position="0.4 0 0.5" scale="0.02 0.02 0.02" src="#avatarModel" animation=""></a-gltf-model>
         <a-gltf-model visible=true rotation="0 0 0 " position="0 -0.25 0.5" scale="0.3 0.3 0.3" src="#capybara" animation="property: rotation; to: 0 360 0; dur: 2000; loop: true"></a-gltf-model>
         
       </a-entity>
@@ -56,7 +46,6 @@
 
       <a-assets>
         <video muted autoplay loop playsinline crossorigin="anonymous" id="poster" src="./poster.mp4"></a-video>
-        <a-asset-item id="avatarModel" src="./Epic Hango.glb"></a-asset-item>
         <a-asset-item id="capybara" src="./capybara.glb"></a-asset-item>
       </a-assets>
     </a-scene>
