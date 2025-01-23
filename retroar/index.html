@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.3/dist/mindar-image-aframe.prod.js"></script>
+  </head>
+  <script>
+    
+    // This tells the browser to start playing the animated
+    // poster once the physical poster is found for the first
+    // time.
+     window.addEventListener('targetFound', function () {
+    // Get animated poster by ID
+    var videoElement = document.getElementById("poster");
+    
+    // Play the animated poster
+    videoElement.play();
+  });
+
+
+
+  // This code makes the Windows 95 pop up window appear 8 seconds
+  // after the physical poster is detected for the first time.
+  AFRAME.registerComponent('mytarget', {
+        init: function () {
+          this.el.addEventListener('targetFound', event => {
+            console.log("target found");
+              setTimeout(() => {
+                const portfolio = document.querySelector("#portfolio");
+
+                portfolio.setAttribute("visible", true);
+
+                portfolio.addEventListener('click', function (evt) {
+                  window.location.replace("https://discord.gg/cVwpHH4v");
+              });
+              }, 8000);
+          });
+          this.el.addEventListener('targetLost', event => {
+            console.log("target found");
+          });
+          //this.el.emit('targetFound');
+        }
+      });
+
+  </script>
+  <body>
+    <a-scene mindar-image="imageTargetSrc: ./targets.mind;" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" mindar-image="filterMinCF:0.0001; filterBeta: 0.001; missTolerance: 10">
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <a-entity id="mytarget" mytarget mindar-image-target="targetIndex: 0">
+        <a-plane src="#poster" position="0 0 0" height="1.2916" width="1" rotation="0 0 0"></a-plane>
+        <a-gltf-model visible=false id="portfolio" class="clickable" rotation="0 0 0 " position="0.4 0 0.5" scale="0.02 0.02 0.02" src="#avatarModel" animation=""></a-gltf-model>
+        <a-gltf-model visible=true rotation="0 0 0 " position="0 -0.25 0.5" scale="0.3 0.3 0.3" src="#capybara" animation="property: rotation; to: 0 360 0; dur: 2000; loop: true"></a-gltf-model>
+        
+      </a-entity>
+      
+
+      <a-assets>
+        <video muted autoplay loop playsinline crossorigin="anonymous" id="poster" src="./poster.mp4"></a-video>
+        <a-asset-item id="avatarModel" src="./Epic Hango.glb"></a-asset-item>
+        <a-asset-item id="capybara" src="./capybara.glb"></a-asset-item>
+      </a-assets>
+    </a-scene>
+  </body>
+</html>
